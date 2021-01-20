@@ -1,0 +1,119 @@
+
+
+
+Steps to install openmpi
+================================================
+
+
+
+1. Instalar g++
+---------------------------
+sudo apt install g++
+
+
+
+
+2.Download:
+-----------------------------------
+cd ~
+
+wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.1.tar.gz
+
+
+									ou baixar do site  	http://www.open-mpi.org/software/ompi/v1.6/
+											http://www.open-mpi.org/software/ompi/
+
+									* não baixar em pasta com espaços no nome Ex.: "Área de trabalho"
+
+
+3.Install:*
+-----------------------------------
+
+tar -xvf openmpi-4.0.1.tar.gz 
+		
+sudo mkdir /usr/local/openmpi
+
+cd openmpi-4.0.1
+
+sudo ./configure --prefix /usr/local/openmpi
+
+sudo make all install
+
+cd ..
+
+sudo rm -rf openmpi-4.0.1
+
+rm openmpi-4.0.1.tar.gz
+
+
+
+4. Criar var ambiente:
+-----------------------------------
+
+São duas opções: (escolha uma)
+
+ Incluir PATH no arquivo .bashrc  
+
+
+a) gedit ~/.bashrc 
+
+ADICIONAR NO FINAL
+------------------
+	LD_LIBRARY_PATH=/usr/local/openmpi/lib
+	export LD_LIBRARY_PATH
+
+	PATH=$PATH:/usr/local/openmpi/bin
+	export PATH
+
+
+b)  DIGITAL NO PROMPT
+
+	$ echo 'export PATH=$PATH:/usr/local/openmpi/bin' >> /home/public/.bashrc
+
+	$ echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/openmpi/lib' >> /home/public/.bashrc
+
+
+
+
+5. Atualizar var do shell
+-----------------------------------
+
+São duas opções: (escolha uma)
+
+
+a) digite:
+	$ source ~/.bashrc
+
+b) Fechar o terminal e abra novamente
+
+
+
+
+6. Compilar
+-----------------------------------
+
+$ mpicc
+
+
+
+7. Executar
+-----------------------------------
+a) 
+$ mpirun -np 2 ./a.out
+
+	onde 2 é o número de processos que serão criados
+	
+	
+b) para especificar os micros na linha de comando
+$ mpirun -np 3 --host Aspire,Aspire,Aspire ex0
+$ mpirun -np 2 --host Aspire,Aspire a.out	
+	
+
+
+//criar um arquivo com nome my-hosts e colocar Aspire Aspire Aspire (um em cada linha)
+
+$ mpirun -np 3 --hostfile my-hosts ex4
+
+
+More info:
+http://www.open-mpi.org/faq/?category=building
